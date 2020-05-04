@@ -13,3 +13,14 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::post('/singup', 'UserController@register');
+
+Route::get('/user/{user}', 'UserController@show');
+
+Route::prefix('/admin')->group(function () {
+    Route::post('/privilege', 'PrivilegeController@create');
+    Route::get('/privilege', 'PrivilegeController@index');
+
+    Route::get('/users', 'UserController@index');
+});

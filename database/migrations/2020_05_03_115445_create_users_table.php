@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->foreignId('invite_user_id')->nullable();
             $table->string('nickname', 15);
             $table->string('email', 80);
-            $table->bigInteger('money')->unsigned();
+            $table->bigInteger('money')->unsigned()->default(0);
             $table->enum('status', ['active', 'ban'])->default('active');
             $table->string('theme', 35)->default('default');
             $table->timestamps();

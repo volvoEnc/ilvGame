@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Resources\InviteUserResource;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,30 +11,32 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'name', 'email', 'password',
+        'nickname', 'email', 'invite_user_id',
+        'money', 'status', 'theme'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
-        'password', 'remember_token',
+        'password'
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
+    protected $attributes = [
+        'money' => 0,
+        'status' => 'active',
+        'theme' => 'default'
     ];
+
+    public function invite_user($user_id)
+    {
+        if ($user_id != null) {
+            return new InviteUserResource(User::firstWhere(['id' => $user_id]));
+        }
+        else
+            return null;
+    }
+
+    public function privileges()
+    {
+        return $this->hasMany(Privilege::class);
+    }
 }
