@@ -1,6 +1,6 @@
 ## API для игры
 
-####URL: ilvgame.ezbot.site
+#### URL: ilvgame.ezbot.site
 ### Методы
 
 #### Пользователи
